@@ -48,4 +48,47 @@
     color: #777;
     font-size: 1.2rem;
   }
+  .nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 2rem;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #333;
+    position: relative;
+    transition: color 0.3s ease;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background-color: #333;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #000;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .active {
+    color: #0077cc;
+  }
+  
+  .active::after {
+    width: 100%;
+    background-color: #0077cc;
+  }
   
