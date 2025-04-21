@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import animals from '../data/animals';
 import AnimalDetailModal from '../modals/AnimalDetailModal';
 import { Link } from 'react-router-dom';
@@ -7,13 +8,20 @@ const Home = () => {
   const [activeAnimal, setActiveAnimal] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const toggleAnimal = (animal) => {
-    if (activeAnimal?.name === animal.name) {
-      setActiveAnimal(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const animalName = queryParams.get('animal');
+    if (animalName) {
+      const foundAnimal = animals.find(a => a.name === animalName);
+      if (foundAnimal) {
+        setActiveAnimal(foundAnimal);
+      }
     } else {
-      setActiveAnimal(animal);
+      setActiveAnimal(null); // Reset if no animal in query
     }
-  };
+  }, [location]);
 
   const getShortDesc = (desc) => desc.length > 200 ? desc.slice(0, 200) + '...' : desc;
 
@@ -34,14 +42,6 @@ const Home = () => {
           <button onClick={() => setShowModal(true)}>Read More</button>
         </div>
       )}
-
-      <ul>
-        {animals.map(animal => (
-          <li key={animal.name}>
-            <button onClick={() => toggleAnimal(animal)}>{animal.name}</button>
-          </li>
-        ))}
-      </ul>
 
       {showModal && (
         <AnimalDetailModal
