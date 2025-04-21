@@ -1,34 +1,59 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import animalData from '../data/animals';
+import { useState } from 'react';
+import '../styles/Sidebar.css';
 
 const Sidebar = () => {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const [visibleGroup, setVisibleGroup] = useState('');
+  
+  // Extract the current group and animal from the URL
+  const currentGroup = location.pathname.split('/')[1]; // Get group (mammals, birds, reptiles)
+  const currentAnimalName = new URLSearchParams(location.search).get('animal'); // Get the animal name from the query string
 
-  let filteredAnimals = animalData;
+  const groupNames = ['mammals', 'birds', 'reptiles'];
 
-  if (pathname.includes('mammals')) {
-    filteredAnimals = animalData.filter(a => a.group === 'mammal');
-  } else if (pathname.includes('birds')) {
-    filteredAnimals = animalData.filter(a => a.group === 'bird');
-  } else if (pathname.includes('reptiles')) {
-    filteredAnimals = animalData.filter(a => a.group === 'reptile');
-  }
+  const groupDisplayName = {
+    mammals: 'Mammals',
+    birds: 'Birds',
+    reptiles: 'Reptiles'
+  };
+
+  const toggleGroup = (group) => {
+    setVisibleGroup(prev => (prev === group ? '' : group));
+  };
 
   return (
-    <aside style={{ width: '200px', padding: '1rem', background: '#f4f4f4' }}>
+    <aside className="sidebar">
       <nav>
-        <NavLink to="/">Home</NavLink><br />
-        <NavLink to="/mammals">Mammals</NavLink><br />
-        <NavLink to="/birds">Birds</NavLink><br />
-        <NavLink to="/reptiles">Reptiles</NavLink><br />
-        <hr />
-        <ul>
-          {filteredAnimals.map(animal => (
-            <li key={animal.name}>{animal.name}</li>
-          ))}
-        </ul>
+        {groupNames.map(group => {
+          const animalsInGroup = animalData.filter(a => a.group === group.slice(0, -1)); // 'mammals' -> 'mammal'
+
+          return (
+            <div key={group}>
+              <NavLink
+                to={`/${group}`}  // Link to the respective page (e.g., /mammals)
+                onClick={() => toggleGroup(group)}
+                className={currentGroup === group ? 'active' : ''}
+              >
+                {groupDisplayName[group]}
+              </NavLink>
+
+              {currentGroup === group && (
+                <ul className="animal-list">
+                  {animalsInGroup.map(animal => (
+                    <li key={animal.name}>
+                      <Link to={`/?animal=${encodeURIComponent(animal.name)}`}>{animal.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        })}
       </nav>
     </aside>
   );
 };
+
 export default Sidebar;
