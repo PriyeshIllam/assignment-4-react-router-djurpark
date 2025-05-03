@@ -1,25 +1,47 @@
 import animals from '../data/animals';
 import { useState } from 'react';
 import AnimalDetailModal from '../modals/AnimalDetailModal';
+import '../styles/Group.css';
 
 const Birds = () => {
   const [selectedAnimal, setSelectedAnimal] = useState(null);
-
   const birds = animals.filter(a => a.group === 'bird');
 
   return (
-    <div>
-      <h2>Birds</h2>
-      <p>Birds are warm-blooded animals with fur or hair. Many give birth to live young.</p>
-      <ul>
+    <div className="group-page">
+      <h2 className="page-title">Birds</h2>
+      <p className="page-description">
+        Birds are warm-blooded animals with feathers and wings. Most birds can fly, and they lay eggs. 
+        They have beaks and a lightweight skeleton suited for aerial movement.
+      </p>
+
+      <div className="animal-cards">
         {birds.map(animal => (
-          <li key={animal.name}>
-            <button onClick={() => setSelectedAnimal(animal)}>{animal.name}</button>
-          </li>
+          <div className="animal-card" key={animal.name}>
+            <img src={animal.image} alt={animal.name} className="animal-image" />
+            <div className="animal-info">
+              <div className="animal-name">{animal.name}</div>
+              <p className="animal-description">
+                {animal.description.length > 100
+                  ? animal.description.slice(0, 100) + '...'
+                  : animal.description}
+              </p>
+              <button
+                className="details-btn"
+                onClick={() => setSelectedAnimal(animal)}
+              >
+                View Details
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
+
       {selectedAnimal && (
-        <AnimalDetailModal animal={selectedAnimal} onClose={() => setSelectedAnimal(null)} />
+        <AnimalDetailModal
+          animal={selectedAnimal}
+          onClose={() => setSelectedAnimal(null)}
+        />
       )}
     </div>
   );
