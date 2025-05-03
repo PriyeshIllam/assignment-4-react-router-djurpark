@@ -7,10 +7,9 @@ const Sidebar = () => {
   const location = useLocation();
   const [visibleGroup, setVisibleGroup] = useState('');
   
-  // Extract the current group and animal from the URL
+  // Extract the current group from the URL
   const currentGroup = location.pathname.split('/')[1]; // Get group (mammals, birds, reptiles)
-  const currentAnimalName = new URLSearchParams(location.search).get('animal'); // Get the animal name from the query string
-
+  
   const groupNames = ['mammals', 'birds', 'reptiles'];
 
   const groupDisplayName = {
@@ -20,6 +19,7 @@ const Sidebar = () => {
   };
 
   const toggleGroup = (group) => {
+    // Toggle visibility of the selected group when clicking the group in the sidebar
     setVisibleGroup(prev => (prev === group ? '' : group));
   };
 
@@ -34,16 +34,17 @@ const Sidebar = () => {
               <NavLink
                 to={`/${group}`}  // Link to the respective page (e.g., /mammals)
                 onClick={() => toggleGroup(group)}
-                className={currentGroup === group ? 'active' : ''}
+                className={currentGroup === group ? 'active' : ''}  // Highlight selected group
               >
                 {groupDisplayName[group]}
               </NavLink>
 
+              {/* Display the list of animals when the group is active */}
               {currentGroup === group && (
                 <ul className="animal-list">
                   {animalsInGroup.map(animal => (
                     <li key={animal.name}>
-                      <Link to={`/?animal=${encodeURIComponent(animal.name)}`}>{animal.name}</Link>
+                      <Link to={`/${group}/${encodeURIComponent(animal.name)}`}>{animal.name}</Link>
                     </li>
                   ))}
                 </ul>

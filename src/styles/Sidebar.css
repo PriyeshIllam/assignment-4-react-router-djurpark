@@ -6,6 +6,13 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
+  /* Sidebar.css */
+.sidebar .active {
+  font-weight: bold;
+  color: #008CBA;
+}
+
+  
   .sidebar nav a {
     display: block;
     margin-bottom: 0.6rem;

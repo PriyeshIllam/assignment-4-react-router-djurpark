@@ -11,13 +11,11 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const animalName = queryParams.get('animal');
+    const pathParts = location.pathname.split('/');
+    const animalName = decodeURIComponent(pathParts[2] || '');
     if (animalName) {
       const foundAnimal = animals.find(a => a.name === animalName);
-      if (foundAnimal) {
-        setActiveAnimal(foundAnimal);
-      }
+      setActiveAnimal(foundAnimal || null);
     } else {
       setActiveAnimal(null);
     }
@@ -28,51 +26,52 @@ const Home = () => {
 
   return (
     <div>
-      {/* Welcome Video Section */}
-      <div className="welcome-container">
-        <div className="overlay">
-          <h1>Welcome to Djurpark</h1>
-          <div>Explore Australia's Unique Wildlife</div>
+      {/* Welcome Section */}
+      {!activeAnimal && (
+        <div className="welcome-container">
+          <div className="overlay">
+            <h1>Welcome to Djurpark</h1>
+            <div>Explore Australia's Unique Wildlife</div>
+          </div>
+          <div className="video-container">
+            <video src="/videos/chamelion.mp4" autoPlay loop muted />
+          </div>
+          <div className="video-container">
+            <video src="/videos/kangarooo.mp4" autoPlay loop muted />
+          </div>
+          <div className="video-container">
+            <video src="/videos/parrot.mp4" autoPlay loop muted />
+          </div>
         </div>
-        <div className="video-container">
-          <video src="/videos/chamelion.mp4" autoPlay loop muted />
-        </div>
-        <div className="video-container">
-          <video src="/videos/kangarooo.mp4" autoPlay loop muted />
-        </div>
-        <div className="video-container">
-          <video src="/videos/parrot.mp4" autoPlay loop muted />
-        </div>
-      </div>
+      )}
 
       {/* Animal Section */}
       <div style={{ padding: '1rem' }}>
         {!activeAnimal ? (
           <p>Welcome to the Djurpark Australian Animals Exhibition!</p>
         ) : (
-          <div>
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <img
               src={activeAnimal.image}
               alt={activeAnimal.name}
-              style={{ width: '150px' }}
+              style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }}
             />
             <h2>{activeAnimal.name}</h2>
             <p>{getShortDesc(activeAnimal.description)}</p>
-            <p>
-              <strong>Diet:</strong> {activeAnimal.diet}
-            </p>
             <p>
               <strong>Group:</strong>{' '}
               <Link to={`/${activeAnimal.group}s`}>
                 {activeAnimal.group}
               </Link>
             </p>
-            <button onClick={() => setShowModal(true)}>Read More</button>
+            <button onClick={() => setShowModal(true)} style={{ marginTop: '1rem' }}>
+              Read More
+            </button>
           </div>
         )}
       </div>
 
-      {showModal && (
+      {showModal && activeAnimal && (
         <AnimalDetailModal
           animal={activeAnimal}
           onClose={() => setShowModal(false)}

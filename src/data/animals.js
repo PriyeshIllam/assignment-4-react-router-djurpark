@@ -1,8 +1,7 @@
-// src/data/animals.js
-
 const animals = [
   {
     name: "Echidna",
+    image: "/images/echidna.jpg",
     lifespan: "50 years",
     group: "mammal",
     food: "Insects such as ants and termites, beetle larvae and worms",
@@ -14,6 +13,7 @@ const animals = [
   },
   {
     name: "Tasmanian Devil",
+    image: "/images/tasmanian_devil.jpg",
     lifespan: "5 years",
     group: "mammal",
     food: "A predator, they eat meat from other animals such as wallabies and wombats",
@@ -25,6 +25,7 @@ const animals = [
   },
   {
     name: "Quokka",
+    image: "/images/quokka.jpg",
     lifespan: "10 years",
     group: "mammal",
     food: "Plant eaters, they munch on shrubs and grasses",
@@ -36,6 +37,7 @@ const animals = [
   },
   {
     name: "Frill-necked Lizard",
+    image: "/images/frilled_necked_lizard.jpg",
     lifespan: "20 years",
     group: "reptile",
     food: "Small insects and spiders",
@@ -47,6 +49,7 @@ const animals = [
   },
   {
     name: "Hawksbill Turtle",
+    image: "/images/hawksbill_turtle.jpg",
     lifespan: "50 years",
     group: "reptile",
     food: "Other animals (sponges & jellyfish), sea plants",
@@ -58,6 +61,7 @@ const animals = [
   },
   {
     name: "Perentie",
+    image: "/images/perentie.jpg",
     lifespan: "20 years",
     group: "reptile",
     food: "Carnivore, they eat animals like kangaroos, rabbits, lizards and birds",
@@ -69,6 +73,7 @@ const animals = [
   },
   {
     name: "Cassowary",
+    image: "/images/cassowary.jpg",
     lifespan: "20 years",
     group: "bird",
     food: "Plants matter like fruit, insects and small animals like mice and lizards",
@@ -80,6 +85,7 @@ const animals = [
   },
   {
     name: "Kookaburra",
+    image: "/images/kookaburra.jpg",
     lifespan: "20 years",
     group: "bird",
     food: "Insects and small animals including snakes, frogs and lizards",
@@ -91,6 +97,7 @@ const animals = [
   },
   {
     name: "Yellow Tailed Black Cockatoo",
+    image: "/images/yellow_tailed_black_cockatoos.jpg",
     lifespan: "41 years",
     group: "bird",
     food: "Fruit, seeds and other plant material",
