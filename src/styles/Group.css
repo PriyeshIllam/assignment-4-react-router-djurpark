@@ -2,6 +2,8 @@
 .group-page {
     padding: 20px;
     background-color: #f4f4f4;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the container */
   }
   
   .page-title {
@@ -12,18 +14,18 @@
   }
   
   .page-description {
-    text-align: left; /* Aligning the description text to the left */
+    text-align: left;
     font-size: 1.2rem;
     margin-bottom: 2rem;
     color: #555;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
+    padding-left: 1rem; /* Align with .animal-cards padding */
+    padding-right: 1rem;
+    max-width: 100%; /* Remove auto-centering */
   }
   
   .animal-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
     gap: 1.5rem;
     padding: 0 1rem;
   }
@@ -46,6 +48,7 @@
     height: 200px;
     object-fit: cover;
     border-bottom: 2px solid #ddd;
+    padding: 1rem;
   }
   
   .animal-info {
