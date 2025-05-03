@@ -48,7 +48,7 @@ const Home = () => {
       {/* Animal Section */}
       <div style={{ padding: '1rem' }}>
         {!activeAnimal ? (
-          <p>Welcome to the Djurpark Australian Animals Exhibition!</p>
+          <p></p>
         ) : (
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <img
