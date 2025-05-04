@@ -46,30 +46,24 @@ const Home = () => {
       )}
 
       {/* Animal Section */}
-      <div style={{ padding: '1rem' }}>
-        {!activeAnimal ? (
-          <p>Welcome to the Djurpark Australian Animals Exhibition!</p>
-        ) : (
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <img
-              src={activeAnimal.image}
-              alt={activeAnimal.name}
-              style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }}
-            />
-            <h2>{activeAnimal.name}</h2>
-            <p>{getShortDesc(activeAnimal.description)}</p>
-            <p>
-              <strong>Group:</strong>{' '}
-              <Link to={`/${activeAnimal.group}s`}>
-                {activeAnimal.group}
-              </Link>
-            </p>
-            <button onClick={() => setShowModal(true)} style={{ marginTop: '1rem' }}>
-              Read More
-            </button>
-          </div>
-        )}
-      </div>
+      {activeAnimal && (
+        <div style={{ padding: '1rem', maxWidth: '600px', margin: '0 auto' }}>
+          <img
+            src={activeAnimal.image}
+            alt={activeAnimal.name}
+            style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }}
+          />
+          <h2>{activeAnimal.name}</h2>
+          <p>{getShortDesc(activeAnimal.description)}</p>
+          <p>
+            <strong>Group:</strong>{' '}
+            <Link to={`/${activeAnimal.group}s`}>{activeAnimal.group}</Link>
+          </p>
+          <button onClick={() => setShowModal(true)} style={{ marginTop: '1rem' }}>
+            Read More
+          </button>
+        </div>
+      )}
 
       {showModal && activeAnimal && (
         <AnimalDetailModal
