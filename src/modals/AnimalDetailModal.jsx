@@ -1,12 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import '../styles/AnimalDetailModal.css';
 
 const AnimalDetailModal = ({ animal, onClose }) => {
   if (!animal) return null;
 
+  const handleClick = () => {
+    onClose();
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button onClick={onClose} className="close-button">✕</button>
+        <button onClick={handleClick} className="close-button">✕</button>
         <h2>{animal.name}</h2>
         <img src={animal.image} alt={animal.name} className="animal-image" />
         <div className="animal-details">
@@ -22,5 +27,6 @@ const AnimalDetailModal = ({ animal, onClose }) => {
     </div>
   );
 };
+
 
 export default AnimalDetailModal;
