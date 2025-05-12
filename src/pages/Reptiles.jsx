@@ -1,11 +1,33 @@
+import { useParams, useNavigate } from 'react-router-dom';
 import animals from '../data/animals';
 import { useState } from 'react';
 import AnimalDetailModal from '../modals/AnimalDetailModal';
-import '../styles/Group.css'; // You can use a shared CSS file too.
+import '../styles/Group.css';
 
 const Reptiles = () => {
+  const { animalName } = useParams();
+  const navigate = useNavigate();
   const [selectedAnimal, setSelectedAnimal] = useState(null);
+
   const reptiles = animals.filter(a => a.group === 'reptile');
+
+  const animalFromUrl = animalName
+    ? animals.find(a => a.name.toLowerCase() === decodeURIComponent(animalName).toLowerCase())
+    : null;
+
+  const handleSeeDetails = (animal) => {
+    setSelectedAnimal(animal);
+  };
+
+  const modalAnimal = animalFromUrl || selectedAnimal;
+
+  const handleClose = () => {
+    if (animalFromUrl) {
+      navigate('/reptiles');
+    } else {
+      setSelectedAnimal(null);
+    }
+  };
 
   return (
     <div className="group-page">
@@ -28,7 +50,7 @@ const Reptiles = () => {
               </p>
               <button
                 className="details-btn"
-                onClick={() => setSelectedAnimal(animal)}
+                onClick={() => handleSeeDetails(animal)}
               >
                 View Details
               </button>
@@ -37,10 +59,10 @@ const Reptiles = () => {
         ))}
       </div>
 
-      {selectedAnimal && (
+      {modalAnimal && (
         <AnimalDetailModal
-          animal={selectedAnimal}
-          onClose={() => setSelectedAnimal(null)}
+          animal={modalAnimal}
+          onClose={handleClose}
         />
       )}
     </div>

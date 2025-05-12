@@ -81,4 +81,14 @@
     border-left: 4px solid #008cba;
   }
   
+  .animal-button.active {
+    background-color: #4CAF50; /* or any color you prefer */
+    color: white;
+  }
+  
+  .sidebar-group.active {
+    font-weight: bold;
+    color: #4CAF50; /* active group color */
+  }
+  
   

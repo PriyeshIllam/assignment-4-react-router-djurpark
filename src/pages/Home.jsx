@@ -1,33 +1,32 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import animals from '../data/animals';
-import AnimalDetailModal from '../modals/AnimalDetailModal';
-import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 
-const Home = () => {
-  const [activeAnimal, setActiveAnimal] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+const Home = ({ selectedAnimal, setSelectedAnimal }) => {
   const location = useLocation();
+  const [showFullDetails, setShowFullDetails] = useState(false);
 
   useEffect(() => {
     const pathParts = location.pathname.split('/');
     const animalName = decodeURIComponent(pathParts[2] || '');
+
     if (animalName) {
       const foundAnimal = animals.find(a => a.name === animalName);
-      setActiveAnimal(foundAnimal || null);
+      setSelectedAnimal(foundAnimal || null);
+      setShowFullDetails(true);
     } else {
-      setActiveAnimal(null);
+      setSelectedAnimal(null);
+      setShowFullDetails(false);
     }
-  }, [location]);
+  }, [location, setSelectedAnimal]);
 
   const getShortDesc = (desc) =>
     desc.length > 200 ? desc.slice(0, 200) + '...' : desc;
 
   return (
     <div>
-      {/* Welcome Section */}
-      {!activeAnimal && (
+      {!selectedAnimal && (
         <div className="welcome-container">
           <div className="overlay">
             <h1>Welcome to Djurpark</h1>
@@ -45,31 +44,52 @@ const Home = () => {
         </div>
       )}
 
-      {/* Animal Section */}
-      {activeAnimal && (
+      {selectedAnimal && (
         <div style={{ padding: '1rem', maxWidth: '600px', margin: '0 auto' }}>
           <img
-            src={activeAnimal.image}
-            alt={activeAnimal.name}
+            src={selectedAnimal.image}
+            alt={selectedAnimal.name}
             style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }}
           />
-          <h2>{activeAnimal.name}</h2>
-          <p>{getShortDesc(activeAnimal.description)}</p>
+          <h2>{selectedAnimal.name}</h2>
+          <p>
+            {showFullDetails
+              ? selectedAnimal.description
+              : getShortDesc(selectedAnimal.description)}
+          </p>
+          <p>
+            <strong>Food:</strong>{selectedAnimal.food}
+            
+          </p>
           <p>
             <strong>Group:</strong>{' '}
-            <Link to={`/${activeAnimal.group}s`}>{activeAnimal.group}</Link>
+            <Link to={`/${selectedAnimal.group}s`}>{selectedAnimal.group}</Link>
           </p>
-          <button onClick={() => setShowModal(true)} style={{ marginTop: '1rem' }}>
-            Read More
+
+          {showFullDetails && (
+            <>
+              <p><strong>Diet:</strong> {selectedAnimal.food}</p>
+              <p><strong>Lifespan:</strong> {selectedAnimal.lifespan}</p>
+              <p><strong>Length:</strong> {selectedAnimal.length}</p>
+              <p><strong>Weight:</strong> {selectedAnimal.weight}</p>
+              <p><strong>Found in:</strong> {selectedAnimal.found}</p>
+            </>
+          )}
+
+          <button
+            onClick={() => {
+              if (showFullDetails) {
+                setSelectedAnimal(null);
+                setShowFullDetails(false);
+              } else {
+                setShowFullDetails(true);
+              }
+            }}
+            style={{ marginTop: '1rem' }}
+          >
+            {showFullDetails ? 'Close' : 'Read More'}
           </button>
         </div>
-      )}
-
-      {showModal && activeAnimal && (
-        <AnimalDetailModal
-          animal={activeAnimal}
-          onClose={() => setShowModal(false)}
-        />
       )}
     </div>
   );
