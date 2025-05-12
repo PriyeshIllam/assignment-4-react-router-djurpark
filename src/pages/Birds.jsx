@@ -1,11 +1,33 @@
+import { useParams, useNavigate } from 'react-router-dom';
 import animals from '../data/animals';
 import { useState } from 'react';
 import AnimalDetailModal from '../modals/AnimalDetailModal';
 import '../styles/Group.css';
 
 const Birds = () => {
+  const { animalName } = useParams();
+  const navigate = useNavigate();
   const [selectedAnimal, setSelectedAnimal] = useState(null);
+
   const birds = animals.filter(a => a.group === 'bird');
+
+  const animalFromUrl = animalName
+    ? animals.find(a => a.name.toLowerCase() === decodeURIComponent(animalName).toLowerCase())
+    : null;
+
+  const handleSeeDetails = (animal) => {
+    setSelectedAnimal(animal);
+  };
+
+  const modalAnimal = animalFromUrl || selectedAnimal;
+
+  const handleClose = () => {
+    if (animalFromUrl) {
+      navigate('/birds'); // Go back to the birds group page
+    } else {
+      setSelectedAnimal(null); // Close the modal from state
+    }
+  };
 
   return (
     <div className="group-page">
@@ -28,7 +50,7 @@ const Birds = () => {
               </p>
               <button
                 className="details-btn"
-                onClick={() => setSelectedAnimal(animal)}
+                onClick={() => handleSeeDetails(animal)}
               >
                 View Details
               </button>
@@ -37,10 +59,10 @@ const Birds = () => {
         ))}
       </div>
 
-      {selectedAnimal && (
+      {modalAnimal && (
         <AnimalDetailModal
-          animal={selectedAnimal}
-          onClose={() => setSelectedAnimal(null)}
+          animal={modalAnimal}
+          onClose={handleClose}
         />
       )}
     </div>
