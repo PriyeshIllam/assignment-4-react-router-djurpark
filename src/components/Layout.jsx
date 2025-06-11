@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SidebarGroup from './SidebarGroup';
+import '../styles/Layout.css'; // Import the CSS file
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Header />
-      <div style={{ display: 'flex' }}>
+      <div className="layout-container">
         {!isGroupPage ? (
           <Sidebar setSelectedAnimal={setSelectedAnimal} />
         ) : (

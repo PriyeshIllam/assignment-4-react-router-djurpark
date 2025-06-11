@@ -91,4 +91,28 @@
     color: #4CAF50; /* active group color */
   }
   
-  
+  @media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sidebar-group {
+    width: 100%;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .animal-list {
+    width: 100%;
+    padding-left: 1rem;
+  }
+
+  .animal-list li button {
+    width: 100%;
+  }
+}
