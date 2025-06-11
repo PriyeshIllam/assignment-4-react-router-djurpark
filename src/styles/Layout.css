@@ -1,0 +1,11 @@
+.layout-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+  }
+}
