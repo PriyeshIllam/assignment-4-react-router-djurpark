@@ -2,15 +2,15 @@
 import Header from './Header';
 import Footer from './Footer';
 import SidebarGroup from './SidebarGroup';
+import '../styles/Layout.css'; // Reuse same layout styles
 
 const LayoutGroup = ({ children }) => {
   return (
     <div>
       <Header />
-      <div style={{ display: 'flex' }}>
+      <div className="layout-container">
         <SidebarGroup />
         <main style={{ flex: 1, padding: '1rem' }}>
-          {/* Here, children are passed in as JSX */}
           {children}
         </main>
       </div>

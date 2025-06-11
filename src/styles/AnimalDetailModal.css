@@ -43,3 +43,12 @@
     margin: 0.5rem 0;
   }
   
+  @media (max-width: 768px) {
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .animal-image {
+    max-width: 100%;
+  }
+}
