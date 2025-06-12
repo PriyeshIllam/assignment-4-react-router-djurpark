@@ -2,10 +2,19 @@
   display: flex;
   flex-direction: row;
 }
+.group-container,
+.animal-group-container{
+    flex: 1;
+    padding: '1rem';
+    maxWidth: '100%';
+    overflowX: 'hidden';
+}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+
   .layout-container {
     flex-direction: column;
+          width: 100%;
   }
 }
