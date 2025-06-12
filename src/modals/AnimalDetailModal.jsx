@@ -13,7 +13,7 @@ const AnimalDetailModal = ({ animal, onClose }) => {
       <div className="modal-content">
         <button onClick={handleClick} className="close-button">✕</button>
         <h2>{animal.name}</h2>
-        <img src={animal.image} alt={animal.name} className="animal-image" />
+        <img src={animal.image} alt={animal.name} className="animal-image-popup" />
         <div className="animal-details">
           <p><strong>Description:</strong> {animal.description}</p>
           <p><strong>Diet:</strong> {animal.food}</p>
