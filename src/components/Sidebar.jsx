@@ -44,7 +44,7 @@ const Sidebar = ({ setSelectedAnimal, selectedAnimal }) => {
           }
 
           return (
-            <div key={group}>
+            <div key={group} className="sidebar-container">
               <div
                 className={`sidebar-group ${isGroupActive ? 'active' : ''}`}
                 onClick={() => toggleGroup(group)}
