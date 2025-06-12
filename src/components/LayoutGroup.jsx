@@ -10,7 +10,7 @@ const LayoutGroup = ({ children }) => {
       <Header />
       <div className="layout-container">
         <SidebarGroup />
-        <main style={{ flex: 1, padding: '1rem' }}>
+        <main className='animal-group-container'>
           {children}
         </main>
       </div>

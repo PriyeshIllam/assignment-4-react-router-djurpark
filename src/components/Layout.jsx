@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
           <SidebarGroup />
         )}
 
-        <main style={{ flex: 1, padding: '1rem' }}>
+        <main className='group-container'>
           {children({ selectedAnimal, setSelectedAnimal })}
         </main>
       </div>
