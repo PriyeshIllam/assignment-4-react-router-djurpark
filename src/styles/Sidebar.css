@@ -92,8 +92,13 @@
   }
   
   @media (max-width: 768px) {
+    .sidebar-container{
+      width: 100%;
+      padding: 0.5rem;
+    }
   .sidebar {
     width: 100%;
+    padding: 0.5rem 0;
     border-right: none;
     border-bottom: 1px solid #ddd;
     display: flex;
